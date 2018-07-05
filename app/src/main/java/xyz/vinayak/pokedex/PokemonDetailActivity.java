@@ -129,7 +129,7 @@ public class PokemonDetailActivity extends AppCompatActivity {
                         tvPokemonNameRank.setText("#"+rank+" "+ name);
 
                         Glide.with(getBaseContext()).load(imgUrl)
-                                .fitCenter()
+                                .centerCrop()
                                 .thumbnail(Glide.with(getBaseContext()).load(R.drawable.pokeball_moving))
                                 .crossFade()
                                 .into(ivPokemonImage1);
