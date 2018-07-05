@@ -1,12 +1,16 @@
 package xyz.vinayak.pokedex;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -25,13 +28,11 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Pokemon> pokemonArrayList;
-    RecyclerView recyclerView;
     MediaPlayer mPlayer;
     ImageView ivPokemonImage;
     TextView tvPokemonName;
     Typeface myfont;
-    Button btnNext, btnPrevious;
+    Button btnNext, btnPrevious, btnSearch;
     int currentPokemonRank = 1;
 
     @Override
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         tvPokemonName = findViewById(R.id.tvPokemonName);
         btnNext = findViewById(R.id.buttonNext);
         btnPrevious = findViewById(R.id.buttonPrevious);
+        btnSearch = findViewById(R.id.buttonSearch);
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/pokemon_gb.ttf");
         tvPokemonName.setTypeface(myfont);
 
@@ -85,6 +87,22 @@ public class MainActivity extends AppCompatActivity {
                     currentPokemonRank--;
                     fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
                 }
+            }
+        });
+
+        ivPokemonImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),PokemonDetailActivity.class);
+                intent.putExtra("currentPokemonRank",String.valueOf(currentPokemonRank));
+                startActivity(intent);
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSearchPokemonDialog();
             }
         });
 
@@ -141,5 +159,41 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         mPlayer.stop();
         super.onDestroy();
+    }
+
+    public void showSearchPokemonDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText edt = (EditText) dialogView.findViewById(R.id.edit1);
+//        edt.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "802")});
+
+
+        dialogBuilder.setTitle("Find Pokemon by Rank");
+        dialogBuilder.setMessage("Enter rank below");
+        dialogBuilder.setPositiveButton("Search", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String rank = edt.getText().toString();
+                if(!rank.trim().isEmpty() && Integer.parseInt(rank) > 0 && Integer.parseInt(rank) < 803){
+                    fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(rank));
+                    tvPokemonName.setText("catching Pokemon...");
+
+                    Glide.with(getBaseContext()).load(R.drawable.pokeball_moving)
+                            .crossFade()
+                            .into(ivPokemonImage);
+                    currentPokemonRank = Integer.parseInt(rank);
+                }
+
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
     }
 }
