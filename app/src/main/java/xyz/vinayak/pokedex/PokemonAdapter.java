@@ -63,7 +63,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
             super(itemView);
             ivPokemonImage = itemView.findViewById(R.id.pokemon_image_id);
             tvPokemonName = itemView.findViewById(R.id.pokemon_name_id);
-            myfont = Typeface.createFromAsset(ctx.getAssets(),"fonts/Montserrat.otf");
+            myfont = Typeface.createFromAsset(ctx.getAssets(),"fonts/pokemon_gb.ttf");
             tvPokemonName.setTypeface(myfont);
         }
     }

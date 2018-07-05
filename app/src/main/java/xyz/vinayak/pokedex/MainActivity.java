@@ -1,13 +1,15 @@
 package xyz.vinayak.pokedex;
 
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Pokemon> pokemonArrayList;
     RecyclerView recyclerView;
     MediaPlayer mPlayer;
+    ImageView ivPokemonImage;
+    TextView tvPokemonName;
+    Typeface myfont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +38,22 @@ public class MainActivity extends AppCompatActivity {
         mPlayer = MediaPlayer.create(this, R.raw.pokedex_sound);
         mPlayer.start();
 
-        recyclerView = findViewById(R.id.recycler_view_id);
+        ivPokemonImage = findViewById(R.id.ivPokemonImage);
+        tvPokemonName = findViewById(R.id.tvPokemonName);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/pokemon_gb.ttf");
+        tvPokemonName.setTypeface(myfont);
 
-        RoundCornerProgressBar progress1 = findViewById(R.id.progress_1);
-        progress1.setProgress(25);
+        tvPokemonName.setText("#1 Bulbasaur");
+
+        Glide.with(this).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png")
+                .centerCrop()
+                .thumbnail(Glide.with(this).load(R.drawable.pokeball_moving))
+                .crossFade()
+                .into(ivPokemonImage);
 
 
-        pokemonArrayList = new ArrayList<>();
+//        RoundCornerProgressBar progress1 = findViewById(R.id.progress_1);
+//        progress1.setProgress(25);
 
     }
 
@@ -61,10 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 (MainActivity.this).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        recyclerView.setLayoutManager(new GridLayoutManager(getBaseContext(),2));
-                        recyclerView.setAdapter(new PokemonAdapter(getBaseContext(),pokemonArrayList));
-//                        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-//                        recyclerView.setAdapter(new UserNameAdapter(getBaseContext(),apiResponse.getItems()));
+
                     }
                 });
 
