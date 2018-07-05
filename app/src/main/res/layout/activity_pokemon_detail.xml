@@ -139,6 +139,7 @@
                         android:id="@+id/tvAttackValue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
                         android:textColor="#000000" />
 
@@ -172,6 +173,7 @@
                         android:id="@+id/tvDefenseValue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
                         android:textColor="#000000" />
 
@@ -205,6 +207,7 @@
                         android:id="@+id/tvSpeedValue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
                         android:textColor="#000000" />
 
@@ -238,6 +241,7 @@
                         android:id="@+id/tvHPValue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
                         android:textColor="#000000" />
 
@@ -271,6 +275,7 @@
                         android:id="@+id/tvXPValue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
                         android:textColor="#000000" />
 

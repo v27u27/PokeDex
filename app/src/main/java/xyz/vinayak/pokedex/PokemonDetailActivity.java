@@ -25,7 +25,7 @@ import okhttp3.Response;
 
 public class PokemonDetailActivity extends AppCompatActivity {
 
-    Typeface font,fontBold;
+    Typeface font, fontBold;
 
     TextView tvPokemonNameRank, tvTypesLabel, tvTypeValue1, tvTypeValue2, tvPokemonWeightLabel, tvPokemonWeight, tvPokemonHeightLabel, tvPokemonHeight, tvAttackLabel, tvAttackValue;
     TextView tvDefenseLabel, tvDefenseValue, tvSpeedLabel, tvSpeedValue, tvHPLabel, tvHPValue, tvXPLabel, tvXPValue, tvMovesLabel;
@@ -71,8 +71,8 @@ public class PokemonDetailActivity extends AppCompatActivity {
         tvMovesLabel = findViewById(R.id.tvMovesLabel);
 
 
-        font = Typeface.createFromAsset(this.getAssets(),"fonts/Montserrat.otf");
-        fontBold = Typeface.createFromAsset(this.getAssets(),"fonts/Montserrat-SemiBold.otf");
+        font = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat.otf");
+        fontBold = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat-SemiBold.otf");
 
         tvPokemonNameRank.setTypeface(fontBold);
         tvPokemonHeightLabel.setTypeface(fontBold);
@@ -98,7 +98,7 @@ public class PokemonDetailActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         currentPokemonRank = Integer.parseInt(i.getStringExtra("currentPokemonRank"));
-        fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
+        fetchPokemonData("https://pokeapi.co/api/v2/pokemon/" + String.valueOf(currentPokemonRank));
 
 
     }
@@ -116,7 +116,7 @@ public class PokemonDetailActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String result = response.body().string();
                 Gson gson = new Gson();
-                final APIResponse apiResponse = gson.fromJson(result,APIResponse.class);
+                final APIResponse apiResponse = gson.fromJson(result, APIResponse.class);
 
                 (PokemonDetailActivity.this).runOnUiThread(new Runnable() {
                     @Override
@@ -126,36 +126,41 @@ public class PokemonDetailActivity extends AppCompatActivity {
                         int rank = apiResponse.getId();
                         String imgUrl = removeBackslash(apiResponse.getSprites().getFront_default());
 
-                        tvPokemonNameRank.setText("#"+rank+" "+ name);
+                        tvPokemonNameRank.setText("#" + rank + " " + name);
 
                         Glide.with(getBaseContext()).load(imgUrl)
-                                .centerCrop()
+                                .fitCenter()
                                 .thumbnail(Glide.with(getBaseContext()).load(R.drawable.pokeball_moving))
                                 .crossFade()
                                 .into(ivPokemonImage1);
 
 //                        listViewMoves.setAdapter();
                         ArrayList<APIResponse.Stats> stats = apiResponse.getStats();
-                        for (int i=0; i < stats.size(); i++){
+                        for (int i = 0; i < stats.size(); i++) {
                             APIResponse.Stats.Stat currenstat = stats.get(i).getStat();
                             String nameee = currenstat.getName();
-                            switch (nameee){
-                                case "attack" : progressAttack.setProgress(stats.get(i).getBase_stat());
-                                                tvAttackValue.setText(String.valueOf(stats.get(i).getBase_stat()));
-                                                break;
+                            switch (nameee) {
+                                case "attack":
+                                    progressAttack.setProgress(stats.get(i).getBase_stat());
+                                    tvAttackValue.setText(String.valueOf(stats.get(i).getBase_stat()));
+                                    break;
 
-                                case "defense" : progressDefense.setProgress(stats.get(i).getBase_stat());
-                                                tvDefenseValue.setText(String.valueOf(stats.get(i).getBase_stat()));
-                                                break;
+                                case "defense":
+                                    progressDefense.setProgress(stats.get(i).getBase_stat());
+                                    tvDefenseValue.setText(String.valueOf(stats.get(i).getBase_stat()));
+                                    break;
 
-                                case "speed" : progressSpeed.setProgress(stats.get(i).getBase_stat());
-                                                tvSpeedValue.setText(String.valueOf(stats.get(i).getBase_stat()));
-                                                break;
+                                case "speed":
+                                    progressSpeed.setProgress(stats.get(i).getBase_stat());
+                                    tvSpeedValue.setText(String.valueOf(stats.get(i).getBase_stat()));
+                                    break;
 
-                                case "hp" : progressHP.setProgress(stats.get(i).getBase_stat());
-                                            tvHPValue.setText(String.valueOf(stats.get(i).getBase_stat()));
-                                            break;
-                                default: break;
+                                case "hp":
+                                    progressHP.setProgress(stats.get(i).getBase_stat());
+                                    tvHPValue.setText(String.valueOf(stats.get(i).getBase_stat()));
+                                    break;
+                                default:
+                                    break;
                             }
 
                         }
@@ -164,15 +169,18 @@ public class PokemonDetailActivity extends AppCompatActivity {
                         tvXPValue.setText(String.valueOf(apiResponse.getBase_experience()));
 
                         ArrayList<APIResponse.Types> types = apiResponse.getTypes();
-                        for (int i=0; i < types.size(); i++){
+                        for (int i = 0; i < types.size(); i++) {
                             APIResponse.Types currentType = types.get(i);
                             APIResponse.Types.Type typee = currentType.getType();
-                            switch (currentType.getSlot()){
-                                case 1: tvTypeValue1.setText(typee.getName());
-                                        break;
-                                case 2: tvTypeValue2.setText(typee.getName());
-                                        break;
-                                default: break;
+                            switch (currentType.getSlot()) {
+                                case 1:
+                                    tvTypeValue1.setText(typee.getName());
+                                    break;
+                                case 2:
+                                    tvTypeValue2.setText(typee.getName());
+                                    break;
+                                default:
+                                    break;
                             }
                         }
 
@@ -181,12 +189,12 @@ public class PokemonDetailActivity extends AppCompatActivity {
 
                         ArrayList<APIResponse.Moves> moves = apiResponse.getMoves();
                         ArrayList<String> moveArrayList = new ArrayList<>();
-                        for (int i=0; i < moves.size(); i++){
+                        for (int i = 0; i < moves.size(); i++) {
                             moveArrayList.add(moves.get(i).getMove().getName());
                         }
                         ArrayAdapter<String> itemsAdapter =
-                                new ArrayAdapter<String>(getBaseContext(), R.layout.moves_item_row,R.id.tvMoveName, moveArrayList);
-                                listViewMoves.setAdapter(itemsAdapter);
+                                new ArrayAdapter<String>(getBaseContext(), R.layout.moves_item_row, R.id.tvMoveName, moveArrayList);
+                        listViewMoves.setAdapter(itemsAdapter);
 
                     }
                 });
@@ -195,10 +203,10 @@ public class PokemonDetailActivity extends AppCompatActivity {
         });
     }
 
-    String removeBackslash(String url){
+    String removeBackslash(String url) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i=0; i < url.length(); i++){
-            if(url.charAt(i) != '\\'){
+        for (int i = 0; i < url.length(); i++) {
+            if (url.charAt(i) != '\\') {
                 stringBuilder.append(url.charAt(i));
             }
         }

@@ -172,7 +172,7 @@ public class APIResponse {
         int slot;
         Type type;
 
-        public class Type{
+        public class Type {
             String name;
 
             public String getName() {
