@@ -5,6 +5,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivPokemonImage;
     TextView tvPokemonName;
     Typeface myfont;
+    Button btnNext, btnPrevious;
+    int currentPokemonRank = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +42,51 @@ public class MainActivity extends AppCompatActivity {
         mPlayer = MediaPlayer.create(this, R.raw.pokedex_sound);
         mPlayer.start();
 
+        final MediaPlayer mpBtnClick = MediaPlayer.create(this, R.raw.button_click);
+
+
         ivPokemonImage = findViewById(R.id.ivPokemonImage);
         tvPokemonName = findViewById(R.id.tvPokemonName);
+        btnNext = findViewById(R.id.buttonNext);
+        btnPrevious = findViewById(R.id.buttonPrevious);
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/pokemon_gb.ttf");
         tvPokemonName.setTypeface(myfont);
 
-        tvPokemonName.setText("#1 Bulbasaur");
-
-        Glide.with(this).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png")
-                .centerCrop()
-                .thumbnail(Glide.with(this).load(R.drawable.pokeball_moving))
+        Glide.with(getBaseContext()).load(R.drawable.pokeball_moving)
                 .crossFade()
                 .into(ivPokemonImage);
 
+        fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
 
-//        RoundCornerProgressBar progress1 = findViewById(R.id.progress_1);
-//        progress1.setProgress(25);
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mpBtnClick.start();
+                tvPokemonName.setText("catching Pokemon...");
+
+                Glide.with(getBaseContext()).load(R.drawable.pokeball_moving)
+                        .crossFade()
+                        .into(ivPokemonImage);
+                currentPokemonRank++;
+                fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
+            }
+        });
+
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mpBtnClick.start();
+                if(currentPokemonRank > 1){
+                    tvPokemonName.setText("catching Pokemon...");
+
+                    Glide.with(getBaseContext()).load(R.drawable.pokeball_moving)
+                            .crossFade()
+                            .into(ivPokemonImage);
+                    currentPokemonRank--;
+                    fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
+                }
+            }
+        });
 
     }
 
@@ -76,6 +109,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
+                        String name = apiResponse.getName();
+                        int rank = apiResponse.getId();
+                        String imgUrl = removeBackslash(apiResponse.getSprites().getFront_default());
+
+                        tvPokemonName.setText("#"+rank+" "+ name);
+
+                        Glide.with(getBaseContext()).load(imgUrl)
+                        .fitCenter()
+                        .thumbnail(Glide.with(getBaseContext()).load(R.drawable.pokeball_moving))
+                        .crossFade()
+                        .into(ivPokemonImage);
                     }
                 });
 

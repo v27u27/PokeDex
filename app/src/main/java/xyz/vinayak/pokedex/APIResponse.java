@@ -24,10 +24,10 @@ public class APIResponse {
 
     ArrayList<Abilities> abilities;
 
-    private class Abilities {
+    public class Abilities {
         Ability ability;
 
-        private class Ability {
+        public class Ability {
             String name;
 
             public String getName() {
@@ -49,11 +49,11 @@ public class APIResponse {
 
     ArrayList<Stats> stats;
 
-    private class Stats {
+    public class Stats {
         Stat stat;
         int base_stat;
 
-        private class Stat {
+        public class Stat {
             String name;
 
             public String getName() {
@@ -128,10 +128,10 @@ public class APIResponse {
     ArrayList<Moves> moves;
 
 
-    private class Moves {
+    public class Moves {
         Move move;
 
-        private class Move {
+        public class Move {
             String name;
 
             public String getName() {
@@ -152,7 +152,7 @@ public class APIResponse {
 
     Sprites sprites;
 
-    private class Sprites {
+    public class Sprites {
         String front_default;
 
         public String getFront_default() {
@@ -168,11 +168,11 @@ public class APIResponse {
 
     ArrayList<Types> types;
 
-    private class Types {
+    public class Types {
         int slot;
         Type type;
 
-        private class Type{
+        public class Type{
             String name;
 
             public String getName() {
