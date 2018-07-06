@@ -8,301 +8,308 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:weightSum="10">
 
 
         <TextView
             android:id="@+id/tvPokemonNameRank"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="7"
             android:textColor="#000000"
-            android:textSize="20sp"
+            android:textSize="28sp"
             tools:text="#1 Pokemon Name" />
 
         <ImageView
             android:id="@+id/ivPokemonImage1"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_gravity="end"
-            android:layout_marginLeft="50dp" />
+            android:layout_weight="3" />
 
     </LinearLayout>
 
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tvTypesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Types"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvTypeValue1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_toEndOf="@id/tvTypesLabel"
+            android:textColor="#000000"
+            tools:text="Grass" />
+
+        <TextView
+            android:id="@+id/tvTypeValue2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_toEndOf="@id/tvTypeValue1"
+            android:textColor="#000000"
+            tools:text="Poison" />
+
+        <TextView
+            android:id="@+id/tvPokemonWeightLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTypesLabel"
+            android:layout_marginTop="8dp"
+            android:text="Weight"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvPokemonWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTypesLabel"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/tvPokemonWeightLabel"
+            android:textColor="#000000"
+            tools:text="18" />
+
+        <TextView
+            android:id="@+id/tvPokemonHeightLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPokemonWeightLabel"
+            android:layout_marginTop="8dp"
+            android:text="Height"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvPokemonHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPokemonWeight"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/tvPokemonHeightLabel"
+            android:textColor="#000000"
+            tools:text="18" />
+
+        <TextView
+            android:id="@+id/tvPokemonStatsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPokemonHeightLabel"
+            android:layout_marginTop="8dp"
+            android:text="Stats"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/llStats"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvTypesLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Types"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/tvTypeValue1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_toEndOf="@id/tvTypesLabel"
-                android:textColor="#000000"
-                tools:text="Grass" />
-
-            <TextView
-                android:id="@+id/tvTypeValue2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_toEndOf="@id/tvTypeValue1"
-                android:textColor="#000000"
-                tools:text="Poison" />
-
-            <TextView
-                android:id="@+id/tvPokemonWeightLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvTypesLabel"
-                android:layout_marginTop="8dp"
-                android:text="Weight"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/tvPokemonWeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvTypesLabel"
-                android:layout_marginLeft="45dp"
-                android:layout_marginTop="8dp"
-                android:layout_toEndOf="@id/tvPokemonWeightLabel"
-                android:textColor="#000000"
-                tools:text="18" />
-
-            <TextView
-                android:id="@+id/tvPokemonHeightLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvPokemonWeightLabel"
-                android:layout_marginTop="8dp"
-                android:text="Height"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/tvPokemonHeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvPokemonWeight"
-                android:layout_marginLeft="48dp"
-                android:layout_marginTop="8dp"
-                android:layout_toEndOf="@id/tvPokemonHeightLabel"
-                android:textColor="#000000"
-                tools:text="18" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPokemonStatsLabel"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/llStats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvPokemonHeight"
                 android:layout_margin="8dp"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvAttackLabel"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:text="Attack"
+                    android:textColor="#000000" />
 
-                    <TextView
-                        android:id="@+id/tvAttackLabel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Attack"
-                        android:textColor="#000000" />
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressAttack"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:layout_weight="4"
+                    app:rcBackgroundColor="#F0F0F0"
+                    app:rcMax="150"
+                    app:rcProgressColor="#FF8A65" />
 
-                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                        android:id="@+id/progressAttack"
-                        android:layout_width="0dp"
-                        android:layout_height="4dp"
-                        android:layout_weight="3"
-                        app:rcBackgroundColor="#F0F0F0"
-                        app:rcMax="150"
-                        app:rcProgressColor="#FF8A65" />
-
-                    <TextView
-                        android:id="@+id/tvAttackValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:textColor="#000000" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvAttackValue"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvDefenseLabel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Defense"
-                        android:textColor="#000000" />
-
-                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                        android:id="@+id/progressDefense"
-                        android:layout_width="0dp"
-                        android:layout_height="4dp"
-                        android:layout_weight="3"
-                        app:rcBackgroundColor="#F0F0F0"
-                        app:rcMax="150"
-                        app:rcProgressColor="#9575CD" />
-
-                    <TextView
-                        android:id="@+id/tvDefenseValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:textColor="#000000" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvSpeedLabel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Speed"
-                        android:textColor="#000000" />
-
-                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                        android:id="@+id/progressSpeed"
-                        android:layout_width="0dp"
-                        android:layout_height="4dp"
-                        android:layout_weight="3"
-                        app:rcBackgroundColor="#F0F0F0"
-                        app:rcMax="150"
-                        app:rcProgressColor="#FFD54F" />
-
-                    <TextView
-                        android:id="@+id/tvSpeedValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:textColor="#000000" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvHPLabel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="HP"
-                        android:textColor="#000000" />
-
-                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                        android:id="@+id/progressHP"
-                        android:layout_width="0dp"
-                        android:layout_height="4dp"
-                        android:layout_weight="3"
-                        app:rcBackgroundColor="#F0F0F0"
-                        app:rcMax="150"
-                        app:rcProgressColor="#E57373" />
-
-                    <TextView
-                        android:id="@+id/tvHPValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:textColor="#000000" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvXPLabel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="XP"
-                        android:textColor="#000000" />
-
-                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                        android:id="@+id/progressXP"
-                        android:layout_width="0dp"
-                        android:layout_height="4dp"
-                        android:layout_weight="3"
-                        app:rcBackgroundColor="#F0F0F0"
-                        app:rcMax="300"
-                        app:rcProgressColor="#F06292" />
-
-                    <TextView
-                        android:id="@+id/tvXPValue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:textColor="#000000" />
-
-                </LinearLayout>
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvMovesLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/llStats"
-                android:layout_margin="16dp"
-                android:text="Moves"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <ListView
-                android:id="@+id/listViewMoves"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvMovesLabel" />
+                android:layout_margin="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvDefenseLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Defense"
+                    android:textColor="#000000" />
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressDefense"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:layout_weight="4"
+                    app:rcBackgroundColor="#F0F0F0"
+                    app:rcMax="150"
+                    app:rcProgressColor="#9575CD" />
+
+                <TextView
+                    android:id="@+id/tvDefenseValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvSpeedLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Speed"
+                    android:textColor="#000000" />
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressSpeed"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:layout_weight="4"
+                    app:rcBackgroundColor="#F0F0F0"
+                    app:rcMax="150"
+                    app:rcProgressColor="#FFD54F" />
+
+                <TextView
+                    android:id="@+id/tvSpeedValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvHPLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="HP"
+                    android:textColor="#000000" />
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressHP"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:layout_weight="4"
+                    app:rcBackgroundColor="#F0F0F0"
+                    app:rcMax="150"
+                    app:rcProgressColor="#E57373" />
+
+                <TextView
+                    android:id="@+id/tvHPValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvXPLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="XP"
+                    android:textColor="#000000" />
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressXP"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:layout_weight="4"
+                    app:rcBackgroundColor="#F0F0F0"
+                    app:rcMax="300"
+                    app:rcProgressColor="#F06292" />
+
+                <TextView
+                    android:id="@+id/tvXPValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvMovesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llStats"
+            android:layout_marginTop="8dp"
+            android:text="Moves"
+            android:textColor="#000000"
+            android:textSize="20sp" />
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 
-    </ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp" />
 
 
 </LinearLayout>

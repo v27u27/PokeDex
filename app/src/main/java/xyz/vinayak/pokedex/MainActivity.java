@@ -51,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
         btnNext = findViewById(R.id.buttonNext);
         btnPrevious = findViewById(R.id.buttonPrevious);
         btnSearch = findViewById(R.id.buttonSearch);
-        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/pokemon_gb.ttf");
+        myfont = Typeface.createFromAsset(this.getAssets(), "fonts/pokemon_gb.ttf");
         tvPokemonName.setTypeface(myfont);
 
         Glide.with(getBaseContext()).load(R.drawable.pokeball_moving)
                 .crossFade()
                 .into(ivPokemonImage);
 
-        fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
+        fetchPokemonData("https://pokeapi.co/api/v2/pokemon/" + String.valueOf(currentPokemonRank));
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         .crossFade()
                         .into(ivPokemonImage);
                 currentPokemonRank++;
-                fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
+                fetchPokemonData("https://pokeapi.co/api/v2/pokemon/" + String.valueOf(currentPokemonRank));
             }
         });
 
@@ -78,14 +78,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mpBtnClick.start();
-                if(currentPokemonRank > 1){
+                if (currentPokemonRank > 1) {
                     tvPokemonName.setText("catching Pokemon...");
 
                     Glide.with(getBaseContext()).load(R.drawable.pokeball_moving)
                             .crossFade()
                             .into(ivPokemonImage);
                     currentPokemonRank--;
-                    fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
+                    fetchPokemonData("https://pokeapi.co/api/v2/pokemon/" + String.valueOf(currentPokemonRank));
                 }
             }
         });
@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
         ivPokemonImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),PokemonDetailActivity.class);
-                intent.putExtra("currentPokemonRank",String.valueOf(currentPokemonRank));
+                Intent intent = new Intent(getBaseContext(), PokemonDetailActivity.class);
+                intent.putExtra("currentPokemonRank", String.valueOf(currentPokemonRank));
                 startActivity(intent);
             }
         });
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String result = response.body().string();
                 Gson gson = new Gson();
-                final APIResponse apiResponse = gson.fromJson(result,APIResponse.class);
+                final APIResponse apiResponse = gson.fromJson(result, APIResponse.class);
 
                 (MainActivity.this).runOnUiThread(new Runnable() {
                     @Override
@@ -131,13 +131,13 @@ public class MainActivity extends AppCompatActivity {
                         int rank = apiResponse.getId();
                         String imgUrl = removeBackslash(apiResponse.getSprites().getFront_default());
 
-                        tvPokemonName.setText("#"+rank+" "+ name);
+                        tvPokemonName.setText("#" + rank + " " + name);
 
                         Glide.with(getBaseContext()).load(imgUrl)
-                        .fitCenter()
-                        .thumbnail(Glide.with(getBaseContext()).load(R.drawable.pokeball_moving))
-                        .crossFade()
-                        .into(ivPokemonImage);
+                                .fitCenter()
+                                .thumbnail(Glide.with(getBaseContext()).load(R.drawable.pokeball_moving))
+                                .crossFade()
+                                .into(ivPokemonImage);
                     }
                 });
 
@@ -145,10 +145,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    String removeBackslash(String url){
+    String removeBackslash(String url) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i=0; i < url.length(); i++){
-            if(url.charAt(i) != '\\'){
+        for (int i = 0; i < url.length(); i++) {
+            if (url.charAt(i) != '\\') {
                 stringBuilder.append(url.charAt(i));
             }
         }
@@ -164,11 +164,10 @@ public class MainActivity extends AppCompatActivity {
     public void showSearchPokemonDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        final View dialogView = inflater.inflate(R.layout.custom_dialog, null, true);
         dialogBuilder.setView(dialogView);
 
-        final EditText edt = (EditText) dialogView.findViewById(R.id.edit1);
-//        edt.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "802")});
+        final EditText edt = dialogView.findViewById(R.id.edit1);
 
 
         dialogBuilder.setTitle("Find Pokemon by Rank");
@@ -176,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder.setPositiveButton("Search", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String rank = edt.getText().toString();
-                if(!rank.trim().isEmpty() && Integer.parseInt(rank) > 0 && Integer.parseInt(rank) < 803){
-                    fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(rank));
+                if (!rank.trim().isEmpty() && Integer.parseInt(rank) > 0 && Integer.parseInt(rank) < 803) {
+                    fetchPokemonData("https://pokeapi.co/api/v2/pokemon/" + String.valueOf(rank));
                     tvPokemonName.setText("catching Pokemon...");
 
                     Glide.with(getBaseContext()).load(R.drawable.pokeball_moving)
@@ -190,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                fetchPokemonData("https://pokeapi.co/api/v2/pokemon/"+String.valueOf(currentPokemonRank));
+                fetchPokemonData("https://pokeapi.co/api/v2/pokemon/" + String.valueOf(currentPokemonRank));
             }
         });
         AlertDialog b = dialogBuilder.create();

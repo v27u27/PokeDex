@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +25,12 @@ import okhttp3.Response;
 
 public class PokemonDetailActivity extends AppCompatActivity {
 
-    Typeface font, fontBold;
+    public Typeface font, fontBold;
 
     TextView tvPokemonNameRank, tvTypesLabel, tvTypeValue1, tvTypeValue2, tvPokemonWeightLabel, tvPokemonWeight, tvPokemonHeightLabel, tvPokemonHeight, tvAttackLabel, tvAttackValue;
-    TextView tvDefenseLabel, tvDefenseValue, tvSpeedLabel, tvSpeedValue, tvHPLabel, tvHPValue, tvXPLabel, tvXPValue, tvMovesLabel;
+    TextView tvDefenseLabel, tvDefenseValue, tvSpeedLabel, tvSpeedValue, tvHPLabel, tvHPValue, tvXPLabel, tvXPValue, tvMovesLabel, tvPokemonStatsLabel;
     ImageView ivPokemonImage1;
-    ListView listViewMoves;
+    RecyclerView recyclerView;
     RoundCornerProgressBar progressAttack, progressDefense, progressSpeed, progressHP, progressXP;
 
     int currentPokemonRank;
@@ -42,7 +42,7 @@ public class PokemonDetailActivity extends AppCompatActivity {
 
         ivPokemonImage1 = findViewById(R.id.ivPokemonImage1);
 
-        listViewMoves = findViewById(R.id.listViewMoves);
+        recyclerView = findViewById(R.id.recyclerView);
 
         progressAttack = findViewById(R.id.progressAttack);
         progressDefense = findViewById(R.id.progressDefense);
@@ -69,6 +69,7 @@ public class PokemonDetailActivity extends AppCompatActivity {
         tvXPLabel = findViewById(R.id.tvXPLabel);
         tvXPValue = findViewById(R.id.tvXPValue);
         tvMovesLabel = findViewById(R.id.tvMovesLabel);
+        tvPokemonStatsLabel = findViewById(R.id.tvPokemonStatsLabel);
 
 
         font = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat.otf");
@@ -79,6 +80,7 @@ public class PokemonDetailActivity extends AppCompatActivity {
         tvPokemonWeightLabel.setTypeface(fontBold);
         tvMovesLabel.setTypeface(fontBold);
         tvTypesLabel.setTypeface(fontBold);
+        tvPokemonStatsLabel.setTypeface(fontBold);
 
         tvTypeValue1.setTypeface(font);
         tvTypeValue2.setTypeface(font);
@@ -134,7 +136,6 @@ public class PokemonDetailActivity extends AppCompatActivity {
                                 .crossFade()
                                 .into(ivPokemonImage1);
 
-//                        listViewMoves.setAdapter();
                         ArrayList<APIResponse.Stats> stats = apiResponse.getStats();
                         for (int i = 0; i < stats.size(); i++) {
                             APIResponse.Stats.Stat currenstat = stats.get(i).getStat();
@@ -192,13 +193,12 @@ public class PokemonDetailActivity extends AppCompatActivity {
                         for (int i = 0; i < moves.size(); i++) {
                             moveArrayList.add(moves.get(i).getMove().getName());
                         }
-                        ArrayAdapter<String> itemsAdapter =
-                                new ArrayAdapter<String>(getBaseContext(), R.layout.moves_item_row, R.id.tvMoveName, moveArrayList);
-                        listViewMoves.setAdapter(itemsAdapter);
+
+                        recyclerView.setLayoutManager(new GridLayoutManager(getBaseContext(), 3));
+                        recyclerView.setAdapter(new MovesAdapter(getBaseContext(), moveArrayList));
 
                     }
                 });
-
             }
         });
     }
